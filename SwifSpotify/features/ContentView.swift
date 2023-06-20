@@ -1,0 +1,83 @@
+//
+//  ContentView.swift
+//  SwifSpotify
+//
+//  Created by Ifeanyi Onuoha on 04/06/2023.
+//
+
+import SwiftUI
+
+struct ContentView: View {
+    @Environment(\.colorScheme) private var theme
+    @EnvironmentObject private var router: Router
+    @EnvironmentObject private var authViewModel: AuthViewModel
+    
+    
+    var body: some View {
+        NavigationStack(path: $router.routes) {
+            TabView(selection: $router.selectedTab) {
+                HomeView()
+                    .onTapGesture { router.selectedTab = .home }
+                    .tabItem {
+                        Symbols.home
+                        Text("Home")
+                    }
+                    .tag(Tabs.home)
+                
+                SearchView()
+                    .onTapGesture { router.selectedTab = .search }
+                    .tabItem {
+                        Symbols.search
+                        Text("Search")
+                    }
+                    .tag(Tabs.search)
+                
+                SubscriptionView()
+                    .onTapGesture { router.selectedTab = .subscription }
+                    .tabItem {
+                        if theme == .dark {
+                            Symbols.subscriptionDark
+                        } else {
+                            Symbols.subscriptionLight
+                        }
+                        Text("Premium")
+                    }
+                    .tag(Tabs.subscription)
+            }
+            .toolbar {
+                if router.selectedTab == .home {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Text("Good afternoon")
+                            .font(.title)
+                            .fontWeight(.bold)
+                    }
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Symbols.bell
+                        
+                    }
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Symbols.clock
+                    }
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Symbols.setting
+                    }
+                }
+            }
+            .onAppear {
+                authViewModel.validateToken()
+            }
+            .sheet(isPresented: $authViewModel.authState.tokenHasExpired) {
+                AuthView()
+            }
+            .navigationDestination(for: Route.self, destination: { $0 })
+        }
+    }
+}
+
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+            .environmentObject(Router())
+            .environmentObject(AuthViewModel())
+    }
+}
