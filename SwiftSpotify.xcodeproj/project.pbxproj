@@ -218,9 +218,9 @@
 		5A076DA52A2CB384002ACAC1 /* features */ = {
 			isa = PBXGroup;
 			children = (
+				5ACD3C562A41DDA900F99608 /* data */,
 				5A076DAD2A2CB892002ACAC1 /* presentation */,
 				5A076DAC2A2CB88C002ACAC1 /* domain */,
-				5A076DAB2A2CB884002ACAC1 /* data */,
 				5A076D882A2CA7A5002ACAC1 /* ContentView.swift */,
 			);
 			path = features;
@@ -233,16 +233,6 @@
 				5AA9728E2A2F6BEA005A44F2 /* Theme.swift */,
 			);
 			path = resources;
-			sourceTree = "<group>";
-		};
-		5A076DAB2A2CB884002ACAC1 /* data */ = {
-			isa = PBXGroup;
-			children = (
-				5A8640502A3D0AA000FE1600 /* response */,
-				5A076DCE2A2D475F002ACAC1 /* model */,
-				5A86403F2A3CB6FB00FE1600 /* repository */,
-			);
-			name = data;
 			sourceTree = "<group>";
 		};
 		5A076DAC2A2CB88C002ACAC1 /* domain */ = {
@@ -332,6 +322,7 @@
 				5AC21B8E2A3F8DB800D1E136 /* DetailRepositoryImpl.swift */,
 			);
 			name = repository;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		5A8640502A3D0AA000FE1600 /* response */ = {
@@ -351,6 +342,16 @@
 				5AA9728C2A2F55A0005A44F2 /* Router.swift */,
 			);
 			path = navigation;
+			sourceTree = "<group>";
+		};
+		5ACD3C562A41DDA900F99608 /* data */ = {
+			isa = PBXGroup;
+			children = (
+				5A8640502A3D0AA000FE1600 /* response */,
+				5A076DCE2A2D475F002ACAC1 /* model */,
+				5A86403F2A3CB6FB00FE1600 /* repository */,
+			);
+			path = data;
 			sourceTree = "<group>";
 		};
 		5AD375682A30A23A00A05034 /* view */ = {
