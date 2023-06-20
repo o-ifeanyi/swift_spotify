@@ -314,17 +314,6 @@
 			path = repository;
 			sourceTree = "<group>";
 		};
-		5A86403F2A3CB6FB00FE1600 /* repository */ = {
-			isa = PBXGroup;
-			children = (
-				5ACA77E42A2E138C0014AA3C /* AuthRepositoryImpl.swift */,
-				5ACA77EE2A2EAC9B0014AA3C /* HomeRepositoryImpl.swift */,
-				5AC21B8E2A3F8DB800D1E136 /* DetailRepositoryImpl.swift */,
-			);
-			name = repository;
-			path = ..;
-			sourceTree = "<group>";
-		};
 		5A8640502A3D0AA000FE1600 /* response */ = {
 			isa = PBXGroup;
 			children = (
@@ -347,11 +336,21 @@
 		5ACD3C562A41DDA900F99608 /* data */ = {
 			isa = PBXGroup;
 			children = (
+				5ACD3C572A41DE1500F99608 /* repository */,
 				5A8640502A3D0AA000FE1600 /* response */,
 				5A076DCE2A2D475F002ACAC1 /* model */,
-				5A86403F2A3CB6FB00FE1600 /* repository */,
 			);
 			path = data;
+			sourceTree = "<group>";
+		};
+		5ACD3C572A41DE1500F99608 /* repository */ = {
+			isa = PBXGroup;
+			children = (
+				5ACA77E42A2E138C0014AA3C /* AuthRepositoryImpl.swift */,
+				5ACA77EE2A2EAC9B0014AA3C /* HomeRepositoryImpl.swift */,
+				5AC21B8E2A3F8DB800D1E136 /* DetailRepositoryImpl.swift */,
+			);
+			path = repository;
 			sourceTree = "<group>";
 		};
 		5AD375682A30A23A00A05034 /* view */ = {
