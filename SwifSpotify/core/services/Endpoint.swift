@@ -14,6 +14,8 @@ enum Endpoint {
     case newReleases(offset: Int, limit: Int)
     case playlist(id: String)
     case albums(id: String)
+    case categories(offset: Int, limit: Int)
+    case categoryPlaylists(id: String, offset: Int, limit: Int)
 }
 
 extension Endpoint {
@@ -40,6 +42,10 @@ extension Endpoint {
             return "/v1/playlists/\(id)"
         case .albums(let id):
             return "/v1/albums/\(id)"
+        case .categories:
+            return "/v1/browse/categories"
+        case .categoryPlaylists(let id, _, _):
+            return "/v1/browse/categories/\(id)/playlists"
         }
     }
     
@@ -50,6 +56,10 @@ extension Endpoint {
         case .featuredPlaylist(let offset, let limit):
             return ["offset":"\(offset)", "limit": "\(limit)"]
         case .newReleases(let offset, let limit):
+            return ["offset":"\(offset)", "limit": "\(limit)"]
+        case .categories(let offset, let limit):
+            return ["country": "NG", "offset":"\(offset)", "limit": "\(limit)"]
+        case .categoryPlaylists(_, let offset, let limit):
             return ["offset":"\(offset)", "limit": "\(limit)"]
         default:
             return [:]
@@ -83,10 +93,10 @@ extension Endpoint {
     
     var type: MethodType {
         switch self {
-        case .recommendations, .featuredPlaylist, .newReleases, .playlist, .albums:
-            return .get
         case .token(let data):
             return .post(data: data)
+        default:
+            return .get
         }
     }
     

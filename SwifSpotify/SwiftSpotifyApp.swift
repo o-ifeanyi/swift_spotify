@@ -21,6 +21,7 @@ struct SwiftSpotifyApp: App {
                 .environmentObject(AuthViewModel())
                 .environmentObject(HomeViewModel())
                 .environmentObject(DetailViewModel())
+                .environmentObject(SearchViewModel())
         }
     }
 }
@@ -37,5 +38,6 @@ private extension SwiftSpotifyApp {
         ServiceContainer.register(type: AuthRepository.self, AuthRepositoryImpl())
         ServiceContainer.register(type: HomeRepository.self, HomeRepositoryImpl())
         ServiceContainer.register(type: DetailRepository.self, DetailRepositoryImpl())
+        ServiceContainer.register(type: SearchRepository.self, SearchRepositoryImpl())
     }
 }

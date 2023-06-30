@@ -14,70 +14,80 @@ struct ContentView: View {
     
     
     var body: some View {
-        NavigationStack(path: $router.routes) {
-            TabView(selection: $router.selectedTab) {
-                HomeView()
-                    .onTapGesture { router.selectedTab = .home }
-                    .tabItem {
-                        Symbols.home
-                        Text("Home")
-                    }
-                    .tag(Tabs.home)
-                
-                SearchView()
-                    .onTapGesture { router.selectedTab = .search }
-                    .tabItem {
-                        Symbols.search
-                        Text("Search")
-                    }
-                    .tag(Tabs.search)
-                
-                SubscriptionView()
-                    .onTapGesture { router.selectedTab = .subscription }
-                    .tabItem {
-                        if theme == .dark {
-                            Symbols.subscriptionDark
-                        } else {
-                            Symbols.subscriptionLight
+        ZStack {
+            NavigationStack(path: $router.routes) {
+                TabView(selection: $router.selectedTab) {
+                    HomeView()
+                        .onTapGesture { router.selectedTab = .home }
+                        .tabItem {
+                            Symbols.home
+                            Text("Home")
                         }
-                        Text("Premium")
-                    }
-                    .tag(Tabs.subscription)
-            }
-            .toolbar {
-                if router.selectedTab == .home {
-                    ToolbarItem(placement: .navigationBarLeading) {
-                        Text("Good afternoon")
-                            .font(.title)
-                            .fontWeight(.bold)
-                    }
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        Symbols.bell
-                        
-                    }
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        Symbols.clock
-                    }
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        Symbols.setting
+                        .tag(Tabs.home)
+                    
+                    SearchView()
+                        .onTapGesture { router.selectedTab = .search }
+                        .tabItem {
+                            Symbols.search
+                            Text("Search")
+                        }
+                        .tag(Tabs.search)
+                    
+                    SubscriptionView()
+                        .onTapGesture { router.selectedTab = .subscription }
+                        .tabItem {
+                            if theme == .dark {
+                                Symbols.subscriptionDark
+                            } else {
+                                Symbols.subscriptionLight
+                            }
+                            Text("Premium")
+                        }
+                        .tag(Tabs.subscription)
+                }
+                .toolbar {
+                    switch router.selectedTab {
+                    case .home:
+                        ToolbarItem(placement: .navigationBarLeading) {
+                            Text("Good afternoon")
+                                .font(.title)
+                                .fontWeight(.bold)
+                        }
+                        ToolbarItem(placement: .navigationBarTrailing) {
+                            Symbols.bell
+                            
+                        }
+                        ToolbarItem(placement: .navigationBarTrailing) {
+                            Symbols.clock
+                        }
+                        ToolbarItem(placement: .navigationBarTrailing) {
+                            Symbols.setting
+                        }
+                    case .search:
+                        ToolbarItem(placement: .navigationBarLeading) {
+                            Text("Search")
+                                .font(.title)
+                                .fontWeight(.bold)
+                        }
+                        ToolbarItem(placement: .navigationBarTrailing) {
+                            Symbols.camera
+                        }
+                    case .subscription:
+                        ToolbarItem {
+                            
+                        }
                     }
                 }
+                .onAppear {
+                    authViewModel.validateToken()
+                }
+                .sheet(isPresented: $authViewModel.authState.tokenHasExpired) {
+                    AuthView()
+                }
+                .navigationDestination(for: Route.self, destination: { $0 })
             }
-            .onAppear {
-                authViewModel.validateToken()
-            }
-            .sheet(isPresented: $authViewModel.authState.tokenHasExpired) {
-                AuthView()
-            }
-            .navigationDestination(for: Route.self, destination: { $0 })
+            // media player
         }
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-            .environmentObject(Router())
-            .environmentObject(AuthViewModel())
-    }
-}

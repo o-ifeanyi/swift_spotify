@@ -22,4 +22,5 @@ enum Symbols {
     static let ellipsis = Image(systemName: "ellipsis")
     static let shuffle = Image(systemName: "shuffle")
     static let play = Image(systemName: "play.fill")
+    static let camera = Image(systemName: "camera")
 }

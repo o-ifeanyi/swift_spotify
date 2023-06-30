@@ -14,6 +14,7 @@ enum Tabs {
 enum Route {
     case home
     case detail(id: String, type: String)
+    case categoryPlaylist(id: String, title: String)
 }
 
 extension Route: View {
@@ -23,6 +24,8 @@ extension Route: View {
             ContentView()
         case .detail(let id, let type):
             DetailView(id: id, type: type)
+        case .categoryPlaylist(let id, let title):
+            CategoryPlaylistView(id: id, title: title)
         }
     }
 }
@@ -38,6 +41,8 @@ extension Route: Hashable {
             return "home"
         case .detail:
             return "detail"
+        case .categoryPlaylist:
+            return "categoryPlaylist"
         }
     }
 }

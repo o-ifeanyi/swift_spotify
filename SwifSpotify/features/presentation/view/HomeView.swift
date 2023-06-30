@@ -36,7 +36,7 @@ struct HomeView: View {
                 Spacer()
             }
             .padding()
-            .background(Theme.background)
+            .background(.bar)
         }
         .task {
             if !authViewModel.authState.tokenHasExpired {

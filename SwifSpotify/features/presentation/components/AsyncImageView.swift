@@ -10,22 +10,26 @@ import SwiftUI
 struct AsyncImageView: View {
     @State var url: String?
     @State var placeholder: Color = Theme.onBackground
-    @State var width: CGFloat = 160
-    @State var height: CGFloat = 160
+    @State var width: CGFloat? = 160
+    @State var height: CGFloat? = 160
+    @State var corenerRadius: CGFloat = 0
     
     var body: some View {
         AsyncImage(url: URL(string: url ?? "")) { phase in
             if let image = phase.image {
                     image // Display loaded image.
                     .resizable()
-                    .scaledToFit()
                     .frame(width: width, height: height)
+                    .scaledToFit()
+                    .cornerRadius(corenerRadius)
                 } else if phase.error != nil {
                     Color.red // error.
                         .frame(width: width, height: height)
+                        .cornerRadius(corenerRadius)
                 } else {
                     placeholder  // placeholder.
                         .frame(width: width, height: height)
+                        .cornerRadius(corenerRadius)
                 }
         }
     }

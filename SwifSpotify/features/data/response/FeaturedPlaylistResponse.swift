@@ -10,6 +10,6 @@ import Foundation
 import Foundation
 
 struct FeaturedPlaylistResponse: Codable {
-    let message: String
+    let message: String?
     let playlists: PaginatedData<PlaylistModel>
 }

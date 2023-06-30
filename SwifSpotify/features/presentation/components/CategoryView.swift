@@ -42,7 +42,7 @@ struct CategoryView: View {
                                         .multilineTextAlignment(.leading)
                                         .fontWeight(.semibold)
                                         .lineLimit(1)
-                                    Text("Album . \(item.subtitle)")
+                                    Text("Album • \(item.subtitle)")
                                         .multilineTextAlignment(.leading)
                                         .font(.subheadline)
                                         .lineLimit(1)

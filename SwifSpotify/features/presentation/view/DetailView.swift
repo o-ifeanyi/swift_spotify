@@ -23,7 +23,11 @@ struct DetailView: View {
             if  (isPlaylist && detailState.gettingPlaylist) || (isAlbum && detailState.gettingAlbum) {
                 EmptyView()
             } else if !detailState.gettingAlbumErr.isEmpty || !detailState.gettingPlaylistErr.isEmpty {
-                Text("An error occurred")
+                HStack {
+                    Spacer()
+                    Text("An error occurred")
+                    Spacer()
+                }
             } else {
                 let detailEntity = detailState.detailEntity!
                 
@@ -51,9 +55,9 @@ struct DetailView: View {
                         
                     }
                     if isAlbum {
-                        Text("Album . 2020")
+                        Text("Album • 2020")
                     } else {
-                        Text("7,270,659 saves . 3h 59m")
+                        Text("7,270,659 saves • 3h 59m")
                     }
                     
                     
@@ -131,12 +135,5 @@ struct DetailView: View {
                 SnackbarView(text: detailState.gettingPlaylistErr)
             }
         }
-    }
-}
-
-struct DetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        DetailView(id: "", type: "")
-            .environmentObject(DetailViewModel())
     }
 }

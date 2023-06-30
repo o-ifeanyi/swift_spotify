@@ -27,6 +27,11 @@ struct PaginatedData<T: Codable>: Codable {
         let homeFeedData = data?.map( {HomeFeedData(id: $0.id,type: .album, url: $0.images.first?.url ?? "", header: $0.name, subtitle: $0.artists.first?.name ?? "" )} ) ?? []
         return HomeFeedEntity(id: "new_releases", title: "New Releases", data: homeFeedData)
     }
+    
+    func toCategoryPlaylist() -> [HomeFeedData] {
+        let data = items as? [PlaylistModel]
+        return data?.map( {HomeFeedData(id: $0.id , type: .playlist, url: $0.images.first?.url ?? "", header: $0.description , subtitle: "" )} ) ?? []
+    }
 }
 
 
