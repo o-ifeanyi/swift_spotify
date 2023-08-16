@@ -182,7 +182,7 @@
 			isa = PBXGroup;
 			children = (
 				5A076DA42A2CB37D002ACAC1 /* core */,
-				5A076DA52A2CB384002ACAC1 /* features */,
+				5A076DA52A2CB384002ACAC1 /* app */,
 				5A076D862A2CA7A5002ACAC1 /* SwiftSpotifyApp.swift */,
 				5A076D8A2A2CA7A6002ACAC1 /* Assets.xcassets */,
 				5A076D8C2A2CA7A6002ACAC1 /* Preview Content */,
@@ -233,7 +233,7 @@
 			path = core;
 			sourceTree = "<group>";
 		};
-		5A076DA52A2CB384002ACAC1 /* features */ = {
+		5A076DA52A2CB384002ACAC1 /* app */ = {
 			isa = PBXGroup;
 			children = (
 				5ACD3C562A41DDA900F99608 /* data */,
@@ -241,7 +241,7 @@
 				5A076DAC2A2CB88C002ACAC1 /* domain */,
 				5A076D882A2CA7A5002ACAC1 /* ContentView.swift */,
 			);
-			path = features;
+			path = app;
 			sourceTree = "<group>";
 		};
 		5A076DA62A2CB3B7002ACAC1 /* resources */ = {
