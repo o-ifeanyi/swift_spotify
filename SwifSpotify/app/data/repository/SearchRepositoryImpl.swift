@@ -8,6 +8,19 @@
 import Foundation
 
 final class SearchRepositoryImpl: SearchRepository {
+    func search(query: String, offset: Int, limit: Int) async -> Result<SearchRespone, Error> {
+        do {
+            let (data, _) = try await networkManager.request(.search(query: query, offset: offset, limit: limit))
+            
+            let res: SearchRespone = try JSONMapper.decode(data)
+            
+            return .success(res)
+        } catch {
+            print("fail \(error)")
+            return .failure(SpotifyError.defaultError(error: error))
+        }
+    }
+    
     @Service private var networkManager: NetworkManager
     
     func getCategories(offset: Int, limit: Int) async -> Result<PaginatedData<CategoryIconModel>, Error> {

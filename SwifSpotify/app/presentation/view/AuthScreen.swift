@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct AuthView: View {
+struct AuthScreen: View {
     @EnvironmentObject private var router: Router
     @EnvironmentObject private var authViewModel: AuthViewModel
     @EnvironmentObject private var homeViewModel: HomeViewModel
@@ -61,9 +61,9 @@ struct AuthView: View {
     }
 }
 
-struct AuthView_Previews: PreviewProvider {
+struct AuthScreen_Previews: PreviewProvider {
     static var previews: some View {
-        AuthView()
+        AuthScreen()
             .environmentObject(Router())
             .environmentObject(HomeViewModel())
             .environmentObject(AuthViewModel())

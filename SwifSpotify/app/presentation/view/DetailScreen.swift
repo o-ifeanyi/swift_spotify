@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct DetailView: View {
+struct DetailScreen: View {
     @EnvironmentObject private var detailViewModel: DetailViewModel
     @State private var searchText = ""
     
@@ -90,29 +90,7 @@ struct DetailView: View {
                     }
                     
                     ForEach(detailEntity.tracks) { track in
-                        HStack(spacing: 10) {
-                            if isPlaylist {
-                                AsyncImageView(url: track.url, width: 60, height: 60)
-                            }
-                            
-                            VStack(alignment: .leading, spacing: 5) {
-                                Text(track.title)
-                                    .font(.headline)
-                                    .lineLimit(1)
-                                
-                                Text(track.artist)
-                                    .font(.subheadline)
-                                    .lineLimit(1)
-                            }
-                            
-                            Spacer()
-                            
-                            Button(action: {}, label: {
-                                Symbols.ellipsis
-                                    .font(.title2)
-                            })
-                        }
-                        .frame(height: 60, alignment: .center)
+                        TrackView(title: track.title, subtitle: track.artist, imageUrl: track.url)
                     }
                 }
                 .padding()

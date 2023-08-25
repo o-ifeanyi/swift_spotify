@@ -16,6 +16,7 @@ enum Endpoint {
     case albums(id: String)
     case categories(offset: Int, limit: Int)
     case categoryPlaylists(id: String, offset: Int, limit: Int)
+    case search(query: String, offset: Int, limit: Int)
 }
 
 extension Endpoint {
@@ -46,6 +47,8 @@ extension Endpoint {
             return "/v1/browse/categories"
         case .categoryPlaylists(let id, _, _):
             return "/v1/browse/categories/\(id)/playlists"
+        case .search:
+            return "/v1/search"
         }
     }
     
@@ -61,6 +64,8 @@ extension Endpoint {
             return ["country": "NG", "offset":"\(offset)", "limit": "\(limit)"]
         case .categoryPlaylists(_, let offset, let limit):
             return ["offset":"\(offset)", "limit": "\(limit)"]
+        case .search(let query, let offset, let limit):
+            return ["q": query, "type": "artist,album,playlist,track", "offset":"\(offset)", "limit": "\(limit)"]
         default:
             return [:]
         }

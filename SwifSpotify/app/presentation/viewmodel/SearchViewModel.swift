@@ -20,6 +20,9 @@ struct SearchState {
     var gettingCategoryPlaylistErr: String = ""
 
     var categoryPlaylist: [HomeFeedData] = []
+    
+    var searching: Bool = false
+    var searchingErr: String = ""
 }
 
 final class SearchViewModel: ObservableObject {
@@ -74,6 +77,23 @@ final class SearchViewModel: ObservableObject {
         }
     }
     
+    @MainActor
+    func search(query: String) async {
+        searchState.searchingErr = ""
+        searchState.searching = true
+        
+        defer { searchState.searching = false }
+        
+        let res = await searchRepository.search(query: query, offset: 0, limit: 20)
+        switch res {
+        case .success(_):
+            searchState.searchingErr = ""
+           
+        case .failure(let failure):
+            searchState.searchingErr = failure.localizedDescription
+        }
+    }
+    
     func resetCategoriesState() {
         searchState.categories = []
         searchState.hasMoreCategories = true
@@ -83,5 +103,4 @@ final class SearchViewModel: ObservableObject {
     func isLastItem(id: String) -> Bool {
         return searchState.categories.last?.id == id
     }
-
 }

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CategoryPlaylistView: View {
+struct CategoryPlaylistScreen: View {
     @EnvironmentObject private var router: Router
     @EnvironmentObject private var searchViewModel: SearchViewModel
     @State var id: String
@@ -51,12 +51,5 @@ struct CategoryPlaylistView: View {
         .task {
             await searchViewModel.fetchCategoryPlaylists(id: id)
         }
-    }
-}
-
-struct CategoryPlaylistView_Previews: PreviewProvider {
-    static var previews: some View {
-        CategoryPlaylistView(id: "", title: "Afro")
-            .environmentObject(SearchViewModel())
     }
 }

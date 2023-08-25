@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SubscriptionView: View {
+struct SubscriptionScreen: View {
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
             VStack(alignment: .center, spacing: 10) {
@@ -53,8 +53,8 @@ struct SubscriptionView: View {
     }
 }
 
-struct SubscriptionView_Previews: PreviewProvider {
+struct SubscriptionScreen_Previews: PreviewProvider {
     static var previews: some View {
-        SubscriptionView()
+        SubscriptionScreen()
     }
 }

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct HomeView: View {
+struct HomeScreen: View {
     @EnvironmentObject private var authViewModel: AuthViewModel
     @EnvironmentObject private var homeViewModel: HomeViewModel
     let gridColumn = Array(repeating: GridItem(.flexible()), count: 2)
@@ -51,9 +51,9 @@ struct HomeView: View {
     }
 }
 
-struct HomeView_Previews: PreviewProvider {
+struct HomeScreen_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView()
+        HomeScreen()
             .environmentObject(HomeViewModel())
     }
 }

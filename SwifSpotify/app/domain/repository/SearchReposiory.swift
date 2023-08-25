@@ -11,4 +11,6 @@ protocol SearchRepository {
     func getCategories(offset: Int, limit: Int) async -> Result<PaginatedData<CategoryIconModel>, Error>
     
     func getCategoryPlaylist(id: String, offset: Int, limit: Int) async -> Result<PaginatedData<PlaylistModel>, Error>
+    
+    func search(query: String, offset: Int, limit: Int) async -> Result<SearchRespone, Error>
 }

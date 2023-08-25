@@ -17,7 +17,7 @@ struct ContentView: View {
         ZStack {
             NavigationStack(path: $router.routes) {
                 TabView(selection: $router.selectedTab) {
-                    HomeView()
+                    HomeScreen()
                         .onTapGesture { router.selectedTab = .home }
                         .tabItem {
                             Symbols.home
@@ -25,7 +25,7 @@ struct ContentView: View {
                         }
                         .tag(Tabs.home)
                     
-                    SearchView()
+                    SearchScreen()
                         .onTapGesture { router.selectedTab = .search }
                         .tabItem {
                             Symbols.search
@@ -33,7 +33,7 @@ struct ContentView: View {
                         }
                         .tag(Tabs.search)
                     
-                    SubscriptionView()
+                    SubscriptionScreen()
                         .onTapGesture { router.selectedTab = .subscription }
                         .tabItem {
                             if theme == .dark {
@@ -82,7 +82,7 @@ struct ContentView: View {
                     authViewModel.validateToken()
                 }
                 .sheet(isPresented: $authViewModel.authState.tokenHasExpired) {
-                    AuthView()
+                    AuthScreen()
                 }
                 .navigationDestination(for: Route.self, destination: { $0 })
             }
