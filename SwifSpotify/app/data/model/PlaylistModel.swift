@@ -20,7 +20,7 @@ struct PlaylistModel: Codable, Identifiable {
     let tracks: PaginatedData<PlaylistTrackModel>?
     
     func toDetailEntity() -> DetailEntity {
-        let trackData = tracks?.items?.map( { DetailTrackData(id: $0.track.id, url: $0.track.album.images.last?.url ?? "", title: $0.track.name, artist: $0.track.artists.first?.name ?? "", previewUrl: $0.track.previewUrl ?? "") } )
+        let trackData = tracks?.items?.map( { TrackDataEntity(id: $0.track.id, url: $0.track.album.images.last?.url ?? "", title: $0.track.name, subtitle: $0.track.artists.first?.name ?? "", previewUrl: $0.track.previewUrl ?? "") } )
         
         var time = 0
         for i in tracks?.items ?? [] {

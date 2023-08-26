@@ -90,13 +90,14 @@ struct DetailScreen: View {
                     }
                     
                     ForEach(detailEntity.tracks) { track in
-                        TrackView(title: track.title, subtitle: track.artist, imageUrl: track.url)
+                        TrackView(title: track.title, subtitle: track.subtitle, imageUrl: track.url)
                     }
                 }
                 .padding()
             }
     
         }
+        .navigationBarTitleDisplayMode(.inline)
         .searchable(text: $searchText, prompt: "Find in playlist")
         .task {
             if isPlaylist {

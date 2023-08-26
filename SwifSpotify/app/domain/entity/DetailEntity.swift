@@ -13,13 +13,13 @@ struct DetailEntity: Identifiable {
     let name: String
     let description: String
     let duration: String
-    let tracks: [DetailTrackData]
+    let tracks: [TrackDataEntity]
 }
 
-struct DetailTrackData: Identifiable {
+struct TrackDataEntity: Identifiable {
     let id: String
     let url: String
     let title: String
-    let artist: String
+    let subtitle: String
     let previewUrl: String
 }

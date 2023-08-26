@@ -17,11 +17,11 @@ struct SearchScreen: View {
     var body: some View {
         let state = searchViewModel.searchState
         
-        ScrollView(.vertical, showsIndicators: false) {
+        VStack {
             if search.isEmpty {
                 SearchCategoryView()
             } else {
-                Text("Searching View")
+                SearchResultView()
             }
             
         }

@@ -21,8 +21,9 @@ struct SearchState {
 
     var categoryPlaylist: [HomeFeedData] = []
     
-    var searching: Bool = false
+    var searching: Bool = true
     var searchingErr: String = ""
+    var searchEnity: SearchEntity? = nil
 }
 
 final class SearchViewModel: ObservableObject {
@@ -86,8 +87,8 @@ final class SearchViewModel: ObservableObject {
         
         let res = await searchRepository.search(query: query, offset: 0, limit: 20)
         switch res {
-        case .success(_):
-            searchState.searchingErr = ""
+        case .success(let data):
+            searchState.searchEnity = data.toSearchEntity()
            
         case .failure(let failure):
             searchState.searchingErr = failure.localizedDescription

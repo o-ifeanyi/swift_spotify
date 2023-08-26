@@ -26,7 +26,7 @@ struct AlbumModel: Codable, Identifiable {
     let tracks: PaginatedData<AlbumTracksModel>?
     
     func toDetailEntity() -> DetailEntity {
-        let trackData = tracks?.items?.map( { DetailTrackData(id: $0.id, url: "", title: $0.name, artist: $0.artists.first?.name ?? "", previewUrl: $0.previewUrl ?? "") } )
+        let trackData = tracks?.items?.map( { TrackDataEntity(id: $0.id, url: "", title: $0.name, subtitle: $0.artists.first?.name ?? "", previewUrl: $0.previewUrl ?? "") } )
         
         var time = 0
         for i in tracks?.items ?? [] {

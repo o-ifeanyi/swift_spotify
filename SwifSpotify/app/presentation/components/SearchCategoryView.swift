@@ -16,51 +16,55 @@ struct SearchCategoryView: View {
         let state = searchViewModel.searchState
         
         if state.gettingCategories {
-            ProgressView()
+            ScrollView(.vertical, showsIndicators: false) {
+                ProgressView()
+            }
         } else {
-            VStack(alignment: .leading) {
-                
-                Text("Browse all")
-                    .font(.title2)
-                    .fontWeight(.bold)
-                
-                LazyVGrid(columns: gridColumn) {
-                    ForEach(state.categories) { item in
-                        Button(action: {
-                            router.push(.categoryPlaylist(id: item.id, title: item.name))
-                        }, label: {
-                            ZStack {
-                                Color.random()
-                            }
-                            .overlay(alignment: .bottomTrailing) {
-                                AsyncImageView(url: item.icons.first?.url, width: 80, height: 80, corenerRadius: 8)
-                                    .rotationEffect(.degrees(30))
-                                    .offset(x: 10, y: 10)
-                            }
-                            .overlay(alignment: .topLeading) {
-                                Text(item.name)
-                                    .font(.title2)
-                                    .foregroundColor(.white)
-                                    .fontWeight(.bold)
-                                    .padding(10)
-                            }
-                            .cornerRadius(4)
-                            .frame(height: 100)
-                            .padding(4)
-                        })
-                        .task {
-                            if searchViewModel.isLastItem(id: item.id) && !state.gettingMoreCategories {
-                                await searchViewModel.fetchCategories()
+            ScrollView(.vertical, showsIndicators: false) {
+                VStack(alignment: .leading) {
+                    
+                    Text("Browse all")
+                        .font(.title2)
+                        .fontWeight(.bold)
+                    
+                    LazyVGrid(columns: gridColumn) {
+                        ForEach(state.categories) { item in
+                            Button(action: {
+                                router.push(.categoryPlaylist(id: item.id, title: item.name))
+                            }, label: {
+                                ZStack {
+                                    Color.random()
+                                }
+                                .overlay(alignment: .bottomTrailing) {
+                                    AsyncImageView(url: item.icons.first?.url, width: 80, height: 80, corenerRadius: 8)
+                                        .rotationEffect(.degrees(30))
+                                        .offset(x: 10, y: 10)
+                                }
+                                .overlay(alignment: .topLeading) {
+                                    Text(item.name)
+                                        .font(.title2)
+                                        .foregroundColor(.white)
+                                        .fontWeight(.bold)
+                                        .padding(10)
+                                }
+                                .cornerRadius(4)
+                                .frame(height: 100)
+                                .padding(4)
+                            })
+                            .task {
+                                if searchViewModel.isLastItem(id: item.id) && !state.gettingMoreCategories {
+                                    await searchViewModel.fetchCategories()
+                                }
                             }
                         }
                     }
-                }
-                
-                if state.hasMoreCategories {
-                    HStack {
-                        Spacer()
-                        ProgressView()
-                        Spacer()
+                    
+                    if state.hasMoreCategories {
+                        HStack {
+                            Spacer()
+                            ProgressView()
+                            Spacer()
+                        }
                     }
                 }
             }

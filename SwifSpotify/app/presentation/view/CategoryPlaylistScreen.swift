@@ -23,23 +23,11 @@ struct CategoryPlaylistScreen: View {
                 EmptyView()
             } else {
                 ScrollView(.vertical, showsIndicators: false) {
-                    Spacer(minLength: 20)
                     LazyVGrid(columns: gridColumn) {
                         ForEach(state.categoryPlaylist) { item in
-                            Button(action: {
+                            PlaylistAlbumView(title: item.header, imageUrl: item.url) {
                                 router.push(.detail(id: item.id, type: "\(item.type)"))
-                            }, label: {
-                                VStack(alignment: .leading) {
-                                    AsyncImageView(url: item.url, width: nil)
-                                    
-                                    Spacer(minLength: 10)
-                                    
-                                    Text(item.header)
-                                        .font(.subheadline)
-                                        .multilineTextAlignment(.leading)
-                                        .lineLimit(2)
-                                }
-                            })
+                            }
                         }
                     }
                     .padding()
