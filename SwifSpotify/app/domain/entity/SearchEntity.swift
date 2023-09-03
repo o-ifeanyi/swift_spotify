@@ -10,7 +10,6 @@ import Foundation
 struct SearchEntity: Identifiable {
     let id: UUID = UUID()
     let tracks: [TrackDataEntity]
-    let artists: [TrackDataEntity]
-    let albums: [TrackDataEntity]
-    let playlists: [TrackDataEntity]
+    let albums: [HomeFeedData]
+    let playlists: [HomeFeedData]
 }

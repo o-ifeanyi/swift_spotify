@@ -25,4 +25,11 @@ enum Symbols {
     static let camera = Image(systemName: "camera")
     static let arrowRight = Image(systemName: "chevron.right")
     static let checkMark = Image(systemName: "checkmark.seal.fill")
+    static let arrowDown = Image(systemName: "chevron.down")
+    static let remove = Image(systemName: "minus.circle")
+    static let previous = Image(systemName: "backward.end.fill")
+    static let next = Image(systemName: "forward.end.fill")
+    static let pause = Image(systemName: "pause.fill")
+    static let share = Image(systemName: "square.and.arrow.up")
+    static let devices = Image(systemName: "tv.and.hifispeaker.fill")
 }

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AVFoundation
 
 extension UIScreen{
    static let screenWidth = UIScreen.main.bounds.size.width
@@ -21,4 +22,10 @@ extension Color {
             blue: .random(in: 0...1)
         )
     }
+}
+
+extension CMTime {
+  func asString() -> String {
+      return String(format: "0:%02d", Int(self.seconds))
+  }
 }

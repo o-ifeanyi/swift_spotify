@@ -22,6 +22,7 @@ struct SwiftSpotifyApp: App {
                 .environmentObject(HomeViewModel())
                 .environmentObject(DetailViewModel())
                 .environmentObject(SearchViewModel())
+                .environmentObject(PlayerViewModel())
         }
     }
 }

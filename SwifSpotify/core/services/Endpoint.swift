@@ -65,7 +65,7 @@ extension Endpoint {
         case .categoryPlaylists(_, let offset, let limit):
             return ["offset":"\(offset)", "limit": "\(limit)"]
         case .search(let query, let offset, let limit):
-            return ["q": query, "type": "artist,album,playlist,track", "offset":"\(offset)", "limit": "\(limit)"]
+            return ["q": query, "type": "album,playlist,track", "offset":"\(offset)", "limit": "\(limit)"]
         default:
             return [:]
         }

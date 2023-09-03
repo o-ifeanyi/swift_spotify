@@ -7,10 +7,17 @@
 
 import SwiftUI
 
+enum SearchTabs: String, CaseIterable {
+    case songs = "Songs"
+    case playlists = "Playlists"
+    case albums = "Albums"
+}
+
 struct SearchResultView: View {
     @EnvironmentObject private var router: Router
+    @EnvironmentObject private var playerViewModel: PlayerViewModel
     @EnvironmentObject private var searchViewModel: SearchViewModel
-    @State var selectedTab: SearchTabs = .artists
+    @State var selectedTab: SearchTabs = .songs
     let gridColumn = Array(repeating: GridItem(.flexible()), count: 2)
     
     var body: some View {
@@ -41,42 +48,19 @@ struct SearchResultView: View {
                                     print(selectedTab)
                                 }
                             )
-                            .padding(.leading, item == .artists ? 10 : 0)
+                            .padding(.leading, item == .songs ? 10 : 0)
                         }
                     }
                 }
                 .padding(.bottom, 10)
                 switch selectedTab {
-                case .artists:
-                    ScrollView(.vertical, showsIndicators: false) {
-                        ForEach(searchEntity.artists) { item in
-                            HStack(spacing: 10) {
-                                AsyncImageView(url: item.url, width: 60, height: 60, corenerRadius: 50)
-                                
-                                Text(item.title)
-                                    .font(.headline)
-                                    .lineLimit(1)
-                                
-                                Symbols.checkMark
-                                    .resizable()
-                                    .frame(width: 15, height: 15)
-                                    .foregroundColor(.blue)
-                                
-                                Spacer()
-                                
-                                Button(action: {}, label: {
-                                    Symbols.arrowRight
-                                        .font(.title2)
-                                })
-                            }
-                            .frame(height: 60, alignment: .center)
-                        }
-                    }
-                    .padding(.horizontal, 15)
                 case .songs:
                     ScrollView(.vertical, showsIndicators: false) {
                         ForEach(searchEntity.tracks) {item in
-                            TrackView(title: item.title, subtitle: item.subtitle, imageUrl: item.url)
+                            TrackView(title: item.title, subtitle: item.subtitle, imageUrl: item.url) {
+                                playerViewModel.setQueue(val: searchEntity.tracks)
+                                playerViewModel.play(item)
+                            }
                         }
                     }
                     .padding(.horizontal, 15)
@@ -84,8 +68,8 @@ struct SearchResultView: View {
                     ScrollView(.vertical, showsIndicators: false) {
                         LazyVGrid(columns: gridColumn) {
                             ForEach(searchEntity.playlists) { item in
-                                PlaylistAlbumView(title: item.title, imageUrl: item.url) {
-                                    router.push(.detail(id: item.id, type: "\(FeedType.playlist)"))
+                                PlaylistAlbumView(title: item.header, imageUrl: item.url) {
+                                    router.push(.detail(id: item.id, type: "\(item.type)"))
                                 }
                             }
                         }
@@ -95,8 +79,8 @@ struct SearchResultView: View {
                     ScrollView(.vertical, showsIndicators: false) {
                         LazyVGrid(columns: gridColumn) {
                             ForEach(searchEntity.albums) { item in
-                                PlaylistAlbumView(title: item.title, imageUrl: item.url) {
-                                    router.push(.detail(id: item.id, type: "\(FeedType.album)"))
+                                PlaylistAlbumView(title: item.header, imageUrl: item.url) {
+                                    router.push(.detail(id: item.id, type: "\(item.type)"))
                                 }
                             }
                         }

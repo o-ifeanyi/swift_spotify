@@ -9,6 +9,7 @@ import SwiftUI
 
 struct DetailScreen: View {
     @EnvironmentObject private var detailViewModel: DetailViewModel
+    @EnvironmentObject private var playerViewModel: PlayerViewModel
     @State private var searchText = ""
     
     let id: String
@@ -90,7 +91,10 @@ struct DetailScreen: View {
                     }
                     
                     ForEach(detailEntity.tracks) { track in
-                        TrackView(title: track.title, subtitle: track.subtitle, imageUrl: track.url)
+                        TrackView(title: track.title, subtitle: track.subtitle, imageUrl: track.url) {
+                            playerViewModel.setQueue(val: detailEntity.tracks)
+                            playerViewModel.play(track)
+                        }
                     }
                 }
                 .padding()

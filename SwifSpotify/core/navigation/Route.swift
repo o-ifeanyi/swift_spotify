@@ -11,17 +11,11 @@ enum Tabs {
     case home, search, subscription
 }
 
-enum SearchTabs: String, CaseIterable {
-    case artists = "Artists"
-    case songs = "Songs"
-    case playlists = "Playlists"
-    case albums = "Albums"
-}
-
 enum Route {
     case home
     case detail(id: String, type: String)
     case categoryPlaylist(id: String, title: String)
+    case nowPlaying
 }
 
 extension Route: View {
@@ -33,6 +27,8 @@ extension Route: View {
             DetailScreen(id: id, type: type)
         case .categoryPlaylist(let id, let title):
             CategoryPlaylistScreen(id: id, title: title)
+        case .nowPlaying:
+            NowPlayingScreen()
         }
     }
 }
@@ -50,6 +46,8 @@ extension Route: Hashable {
             return "detail"
         case .categoryPlaylist:
             return "categoryPlaylist"
+        case .nowPlaying:
+            return "mpwPlaying"
         }
     }
 }

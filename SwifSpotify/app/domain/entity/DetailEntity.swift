@@ -16,7 +16,7 @@ struct DetailEntity: Identifiable {
     let tracks: [TrackDataEntity]
 }
 
-struct TrackDataEntity: Identifiable {
+struct TrackDataEntity: Identifiable, Equatable {
     let id: String
     let url: String
     let title: String

@@ -10,7 +10,7 @@ import SwiftUI
 struct PlaylistAlbumView: View {
     @State var title: String
     @State var imageUrl: String
-    @State var action: () -> Void
+    let action: () -> Void
     
     var body: some View {
         Button(action: action, label: {

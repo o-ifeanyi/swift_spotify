@@ -11,36 +11,39 @@ struct TrackView: View {
     @State var title: String
     @State var subtitle: String
     @State var imageUrl: String?
+    let action: () -> Void
     
     var body: some View {
-        HStack(spacing: 10) {
-            if imageUrl != nil {
-                AsyncImageView(url: imageUrl, width: 60, height: 60)
-            }
-            
-            VStack(alignment: .leading, spacing: 5) {
-                Text(title)
-                    .font(.headline)
-                    .lineLimit(1)
+        Button(action: action, label: {
+            HStack(spacing: 10) {
+                if imageUrl != nil {
+                    AsyncImageView(url: imageUrl, width: 60, height: 60)
+                }
                 
-                Text(subtitle)
-                    .font(.subheadline)
-                    .lineLimit(1)
+                VStack(alignment: .leading, spacing: 5) {
+                    Text(title)
+                        .font(.headline)
+                        .lineLimit(1)
+                    
+                    Text(subtitle)
+                        .font(.subheadline)
+                        .lineLimit(1)
+                }
+                
+                Spacer()
+                
+                Button(action: {}, label: {
+                    Symbols.ellipsis
+                        .font(.title2)
+                })
             }
-            
-            Spacer()
-            
-            Button(action: {}, label: {
-                Symbols.ellipsis
-                    .font(.title2)
-            })
-        }
+        })
         .frame(height: 60, alignment: .center)
     }
 }
 
 struct TrackView_Previews: PreviewProvider {
     static var previews: some View {
-        TrackView(title: "Shivers", subtitle: "Ed Sheeran", imageUrl: nil)
+        TrackView(title: "Shivers", subtitle: "Ed Sheeran", imageUrl: nil) { }
     }
 }

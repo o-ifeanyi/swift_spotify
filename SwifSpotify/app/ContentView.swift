@@ -11,10 +11,11 @@ struct ContentView: View {
     @Environment(\.colorScheme) private var theme
     @EnvironmentObject private var router: Router
     @EnvironmentObject private var authViewModel: AuthViewModel
+    @State private var showNowPlaying: Bool = false
     
     
     var body: some View {
-        ZStack {
+        ZStack(alignment: .bottom) {
             NavigationStack(path: $router.routes) {
                 TabView(selection: $router.selectedTab) {
                     HomeScreen()
@@ -84,9 +85,14 @@ struct ContentView: View {
                 .sheet(isPresented: $authViewModel.authState.tokenHasExpired) {
                     AuthScreen()
                 }
+                .sheet(isPresented: $showNowPlaying) {
+                    NowPlayingScreen()
+                }
                 .navigationDestination(for: Route.self, destination: { $0 })
             }
-            // media player
+            PlayerView {
+                showNowPlaying.toggle()
+            }
         }
     }
 }

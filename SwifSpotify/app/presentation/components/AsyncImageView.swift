@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct AsyncImageView: View {
-    @State var url: String?
+    let url: String?
     @State var placeholder: Color = Theme.onBackground
     @State var width: CGFloat? = 160
     @State var height: CGFloat? = 160
@@ -37,6 +37,6 @@ struct AsyncImageView: View {
 
 struct AsyncImageView_Previews: PreviewProvider {
     static var previews: some View {
-        AsyncImageView()
+        AsyncImageView(url: "")
     }
 }
