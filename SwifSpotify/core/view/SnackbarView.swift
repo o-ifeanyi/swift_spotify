@@ -22,17 +22,13 @@ struct SnackbarView: View {
         }
         .background(isError ? .red : Theme.accent)
         .cornerRadius(10)
+        .padding(.top, 15)
         .opacity(isAnimating ? 1 : 0)
         .offset(y: isAnimating ? -20 : 20)
         .onAppear {
             withAnimation(.easeOut(duration: 0.3)) {
                 isAnimating.toggle()
             }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 4.0, execute: {
-                withAnimation(.easeOut(duration: 0.3)) {
-                    isAnimating.toggle()
-                }
-            })
         }
     }
 }

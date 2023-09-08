@@ -11,6 +11,7 @@ struct AuthScreen: View {
     @EnvironmentObject private var router: Router
     @EnvironmentObject private var authViewModel: AuthViewModel
     @EnvironmentObject private var homeViewModel: HomeViewModel
+    @EnvironmentObject private var snackBarService: SnackBarService
     
     
     var body: some View {
@@ -54,18 +55,10 @@ struct AuthScreen: View {
         .interactiveDismissDisabled()
         .ignoresSafeArea()
         .overlay(alignment: .bottom) {
-            if !authViewModel.authState.gettingTokenErr.isEmpty {
-                SnackbarView(text: authViewModel.authState.gettingTokenErr)
+            if (snackBarService.snackBarState?.hasError == true) {
+                SnackbarView(text: snackBarService.snackBarState?.error.localizedDescription ?? "An error occured")
             }
         }
     }
 }
 
-struct AuthScreen_Previews: PreviewProvider {
-    static var previews: some View {
-        AuthScreen()
-            .environmentObject(Router())
-            .environmentObject(HomeViewModel())
-            .environmentObject(AuthViewModel())
-    }
-}

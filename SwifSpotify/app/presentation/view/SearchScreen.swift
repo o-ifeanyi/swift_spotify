@@ -40,11 +40,6 @@ struct SearchScreen: View {
                 await searchViewModel.fetchCategories()
             }
         }
-        .overlay(alignment: .bottom) {
-            if !state.gettingCategoriesErr.isEmpty {
-                SnackbarView(text: state.gettingCategoriesErr)
-            }
-        }
         .onChange(of: search, perform: { query in
             if !query.isEmpty {
                 debouncer.call {

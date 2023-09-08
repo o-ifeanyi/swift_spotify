@@ -9,22 +9,23 @@ import Foundation
 
 struct HomeState {
     var gettingHomeFeed: Bool = false
-    var gettingHomeFeedErr: String = ""
     var homeFeed: [HomeFeedEntity] = []
-    
     var gettingRecommendations: Bool = false
-    var gettingRecommendationsErr: String = ""
     var recommendations: [RecommendationModel] = []
 }
 
 final class HomeViewModel: ObservableObject {
     @Service private var homerepository: HomeRepository
     @Published var homeState = HomeState()
+    private var snackBarService: SnackBarService
+    
+    init(_ snackBarService: SnackBarService) {
+        self.snackBarService = snackBarService
+    }
     
     @MainActor
     func fetchRecommendations() async {
 
-        homeState.gettingRecommendationsErr = ""
         homeState.gettingRecommendations = true
         defer { homeState.gettingRecommendations = false }
  
@@ -34,14 +35,13 @@ final class HomeViewModel: ObservableObject {
         case .success(let data):
             homeState.recommendations = data
         case .failure(let failure):
-            homeState.gettingRecommendationsErr = failure.localizedDescription
+            snackBarService.displayError(failure)
         }
     }
     
     @MainActor
     func fetchHomeFeed() async {
 
-        homeState.gettingHomeFeedErr = ""
         homeState.gettingHomeFeed = true
         defer { homeState.gettingHomeFeed = false }
         
@@ -51,7 +51,7 @@ final class HomeViewModel: ObservableObject {
         case .success(let data):
             homeState.homeFeed.append(data.toFeaturedPlaylist())
         case .failure(let failure):
-            homeState.gettingHomeFeedErr = failure.localizedDescription
+            snackBarService.displayError(failure)
         }
         
         let newReleases = await homerepository.getNewRealease(offset: 0, limit: 10)
@@ -60,7 +60,7 @@ final class HomeViewModel: ObservableObject {
         case .success(let data):
             homeState.homeFeed.append(data.toNewReleases())
         case .failure(let failure):
-            homeState.gettingHomeFeedErr = failure.localizedDescription
+            snackBarService.displayError(failure)
         }
     }
 }

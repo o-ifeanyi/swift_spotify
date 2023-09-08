@@ -23,13 +23,7 @@ struct DetailScreen: View {
         ScrollView(.vertical, showsIndicators: false) {
             if  (isPlaylist && detailState.gettingPlaylist) || (isAlbum && detailState.gettingAlbum) {
                 EmptyView()
-            } else if !detailState.gettingAlbumErr.isEmpty || !detailState.gettingPlaylistErr.isEmpty {
-                HStack {
-                    Spacer()
-                    Text("An error occurred")
-                    Spacer()
-                }
-            } else {
+            } else if detailState.detailEntity != nil  {
                 let detailEntity = detailState.detailEntity!
                 
                 AsyncImageView(url: detailEntity.url, width: UIScreen.screenWidth * 0.7, height: UIScreen.screenHeight * 0.3)
@@ -108,14 +102,6 @@ struct DetailScreen: View {
                 await detailViewModel.fetchPlaylist(id: id)
             } else if isAlbum {
                 await detailViewModel.fetchAlbum(id: id)
-            }
-        }
-        .overlay(alignment: .bottom) {
-            if !detailState.gettingAlbumErr.isEmpty {
-                SnackbarView(text: detailState.gettingAlbumErr)
-            }
-            if !detailState.gettingPlaylistErr.isEmpty {
-                SnackbarView(text: detailState.gettingPlaylistErr)
             }
         }
     }

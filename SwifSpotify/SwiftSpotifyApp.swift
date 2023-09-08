@@ -10,6 +10,8 @@ import SwiftUI
 @main
 struct SwiftSpotifyApp: App {
     
+    private var snackBarService = SnackBarService()
+    
     init() {
         setupServiceContainer()
     }
@@ -18,11 +20,12 @@ struct SwiftSpotifyApp: App {
         WindowGroup {
             ContentView()
                 .environmentObject(Router())
-                .environmentObject(AuthViewModel())
-                .environmentObject(HomeViewModel())
-                .environmentObject(DetailViewModel())
-                .environmentObject(SearchViewModel())
+                .environmentObject(AuthViewModel(snackBarService))
+                .environmentObject(HomeViewModel(snackBarService))
+                .environmentObject(DetailViewModel(snackBarService))
+                .environmentObject(SearchViewModel(snackBarService))
                 .environmentObject(PlayerViewModel())
+                .environmentObject(snackBarService)
         }
     }
 }

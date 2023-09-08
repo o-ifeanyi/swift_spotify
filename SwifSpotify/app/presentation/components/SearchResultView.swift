@@ -27,11 +27,7 @@ struct SearchResultView: View {
             ScrollView(.vertical) {
                 ProgressView()
             }
-        } else if !state.searchingErr.isEmpty {
-            ScrollView(.vertical) {
-                Text("An error occured")
-            }
-        } else {
+        } else if state.searchEnity != nil {
             let searchEntity = state.searchEnity!
             
             VStack(alignment: .leading) {

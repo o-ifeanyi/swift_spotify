@@ -9,7 +9,6 @@ import Foundation
 
 struct AuthState {
     var gettingToken: Bool = false
-    var gettingTokenErr: String = ""
     var tokenHasExpired: Bool = false
 }
 
@@ -17,6 +16,11 @@ final class AuthViewModel: ObservableObject {
     @Service private var authRepository: AuthRepository
     @Service private var userDefaults: UserDefaults
     @Published var authState = AuthState()
+    private var snackBarService: SnackBarService
+    
+    init(_ snackBarService: SnackBarService) {
+        self.snackBarService = snackBarService
+    }
     
     func validateToken() {
         let date = userDefaults.object(forKey: Constants.tokenExp)
@@ -31,7 +35,6 @@ final class AuthViewModel: ObservableObject {
     @MainActor
     func getAndSetToken() async {
 
-        authState.gettingTokenErr = ""
         authState.gettingToken = true
         defer { authState.gettingToken = false }
         
@@ -41,7 +44,7 @@ final class AuthViewModel: ObservableObject {
         switch res {
         case .success(_): break
         case .failure(let failure):
-            authState.gettingTokenErr = failure.localizedDescription
+            snackBarService.displayError(failure)
         }
     }
 }

@@ -10,19 +10,13 @@ import Foundation
 struct SearchState {
     var gettingCategories: Bool = true
     var gettingMoreCategories: Bool = true
-    var gettingCategoriesErr: String = ""
 
     var categories: [CategoryIconModel] = []
     var hasMoreCategories: Bool = true
     var categoriesPage: Int = 0
-    
     var gettingCategoryPlaylist: Bool = true
-    var gettingCategoryPlaylistErr: String = ""
-
     var categoryPlaylist: [HomeFeedData] = []
-    
     var searching: Bool = true
-    var searchingErr: String = ""
     var searchEnity: SearchEntity? = nil
 }
 
@@ -31,6 +25,11 @@ final class SearchViewModel: ObservableObject {
     @Service private var detailRepository: DetailRepository
     
     @Published private(set) var searchState = SearchState()
+    private var snackBarService: SnackBarService
+    
+    init(_ snackBarService: SnackBarService) {
+        self.snackBarService = snackBarService
+    }
     
     @MainActor
     func fetchCategories(reset: Bool = false) async {
@@ -38,7 +37,6 @@ final class SearchViewModel: ObservableObject {
         
         guard searchState.hasMoreCategories else { return }
             
-        searchState.gettingCategoriesErr = ""
         if searchState.categoriesPage == 0 {
             searchState.gettingCategories = true
         } else {
@@ -57,13 +55,12 @@ final class SearchViewModel: ObservableObject {
             searchState.hasMoreCategories = data.next != nil
             searchState.categoriesPage += 20
         case .failure(let failure):
-            searchState.gettingCategoriesErr = failure.localizedDescription
+            snackBarService.displayError(failure)
         }
     }
     
     @MainActor
     func fetchCategoryPlaylists(id: String) async {
-        searchState.gettingCategoryPlaylistErr = ""
         searchState.gettingCategoryPlaylist = true
         
         defer { searchState.gettingCategoryPlaylist = false }
@@ -74,13 +71,12 @@ final class SearchViewModel: ObservableObject {
             searchState.categoryPlaylist = data.toCategoryPlaylist()
            
         case .failure(let failure):
-            searchState.gettingCategoryPlaylistErr = failure.localizedDescription
+            snackBarService.displayError(failure)
         }
     }
     
     @MainActor
     func search(query: String) async {
-        searchState.searchingErr = ""
         searchState.searching = true
         
         defer { searchState.searching = false }
@@ -91,7 +87,7 @@ final class SearchViewModel: ObservableObject {
             searchState.searchEnity = data.toSearchEntity()
            
         case .failure(let failure):
-            searchState.searchingErr = failure.localizedDescription
+            snackBarService.displayError(failure)
         }
     }
     

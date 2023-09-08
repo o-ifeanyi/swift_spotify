@@ -11,6 +11,7 @@ struct ContentView: View {
     @Environment(\.colorScheme) private var theme
     @EnvironmentObject private var router: Router
     @EnvironmentObject private var authViewModel: AuthViewModel
+    @EnvironmentObject private var snackBarService: SnackBarService
     @State private var showNowPlaying: Bool = false
     
     
@@ -92,6 +93,11 @@ struct ContentView: View {
             }
             PlayerView {
                 showNowPlaying.toggle()
+            }
+        }
+        .overlay(alignment: .top) {
+            if (snackBarService.snackBarState?.hasError == true) {
+                SnackbarView(text: snackBarService.snackBarState?.error.localizedDescription ?? "An error occured")
             }
         }
     }
