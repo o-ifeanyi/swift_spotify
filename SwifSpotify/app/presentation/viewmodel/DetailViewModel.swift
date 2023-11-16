@@ -18,7 +18,7 @@ final class DetailViewModel: ObservableObject {
     @Published private(set) var detailState = DetailState()
     private var snackBarService: SnackBarService
     
-    init(_ snackBarService: SnackBarService) {
+    init(_ snackBarService: SnackBarService = .shared) {
         self.snackBarService = snackBarService
     }
     

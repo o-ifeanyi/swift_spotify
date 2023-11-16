@@ -18,6 +18,8 @@ struct SnackBarState: Identifiable, Equatable {
 }
 
 class SnackBarService: ObservableObject {
+    static let shared = SnackBarService()
+    
     @Published private (set) var snackBarState: SnackBarState?
     
     @MainActor

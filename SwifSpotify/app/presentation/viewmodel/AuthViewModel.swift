@@ -18,7 +18,7 @@ final class AuthViewModel: ObservableObject {
     @Published var authState = AuthState()
     private var snackBarService: SnackBarService
     
-    init(_ snackBarService: SnackBarService) {
+    init(_ snackBarService: SnackBarService = .shared) {
         self.snackBarService = snackBarService
     }
     

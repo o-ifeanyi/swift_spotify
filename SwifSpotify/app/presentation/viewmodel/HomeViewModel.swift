@@ -19,7 +19,7 @@ final class HomeViewModel: ObservableObject {
     @Published var homeState = HomeState()
     private var snackBarService: SnackBarService
     
-    init(_ snackBarService: SnackBarService) {
+    init(_ snackBarService: SnackBarService = .shared) {
         self.snackBarService = snackBarService
     }
     
